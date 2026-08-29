@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Приглашение на свадьбу Алексея и Ксении</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f1f4ef;
+    --cream-2:#e4eae1;
+    --sand:#cfd9c9;
+    --ink:#2f3d33;
+    --muted:#7a8a7c;
+    --line:#b9c7b6;
+    --accent:#8fa68f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Montserrat',Arial,sans-serif;
+    font-weight:300;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .serif{font-family:'Cormorant Garamond',Georgia,serif}
+  .script{font-family:'Marck Script','Cormorant Garamond',cursive;font-weight:400}
+
+  /* ---------- Cover ---------- */
+  #cover{
+    position:fixed;inset:0;z-index:100;
+    background:
+      radial-gradient(ellipse at 30% 20%, #f7faf5 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 75%, #cddbc8 0%, transparent 55%),
+      linear-gradient(160deg,#eef3ea 0%,#d9e4d4 50%,#f0f4ec 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;cursor:pointer;
+    transition:opacity .9s ease, visibility .9s;
+  }
+  #cover.hidden{opacity:0;visibility:hidden}
+  #cover .top{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.35em;font-size:clamp(18px,3vw,30px);text-transform:uppercase}
+  #cover .top span{display:block;font-family:'Marck Script',cursive;text-transform:none;letter-spacing:0;font-size:clamp(34px,6vw,64px);color:var(--muted);margin-top:-6px}
+  #cover .silk{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  #cover .top,#cover .hint,#cover .heart{position:relative;z-index:1}
+  #cover .heart{width:min(300px,55vw);height:auto;margin:40px 0;animation:pulse 2.6s ease-in-out infinite;filter:drop-shadow(0 20px 40px rgba(70,95,75,.25))}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+  #cover .hint{font-size:clamp(15px,2vw,22px);color:var(--ink);max-width:320px;line-height:1.5}
+
+  /* ---------- Layout ---------- */
+  section{padding:90px 24px;position:relative;overflow:hidden}
+  .wrap{max-width:720px;margin:0 auto;position:relative;z-index:1;text-align:center}
+  .alt{background:var(--cream-2)}
+  .blob{position:absolute;border-radius:50%;background:var(--sand);opacity:.55;z-index:0;pointer-events:none}
+  h2.script{font-size:clamp(52px,9vw,92px);line-height:1;color:var(--ink);margin-bottom:34px}
+  .caps{font-family:'Cormorant Garamond',serif;text-transform:uppercase;letter-spacing:.25em;font-weight:400}
+  .lead{font-size:clamp(16px,2.2vw,21px);text-align:left;max-width:560px;margin:0 auto;padding-left:22px;border-left:1px solid var(--line)}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.on{opacity:1;transform:none}
+
+  /* ---------- Hero ---------- */
+  #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(ellipse at 20% 30%, #f7faf5 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, #c9d8c3 0%, transparent 50%),
+      var(--cream);
+  }
+  #hero .caps{font-size:clamp(20px,3vw,32px)}
+  #hero .caps span{display:block;font-family:'Marck Script',cursive;text-transform:none;letter-spacing:0;font-size:clamp(30px,5vw,54px);color:var(--muted);margin-top:-8px}
+  #hero .names{margin:60px 0 50px}
+  #hero .name{font-size:clamp(70px,14vw,150px);line-height:1;display:block}
+  #hero .amp{font-size:clamp(50px,9vw,96px);color:var(--accent);display:block;line-height:1.1;margin:6px 0}
+  #hero .date{font-size:clamp(22px,3.5vw,38px);color:var(--muted);letter-spacing:.2em}
+
+  /* ---------- Calendar ---------- */
+  .month{font-size:clamp(22px,3.5vw,34px);color:var(--muted);margin:50px 0 26px}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px 6px;max-width:380px;margin:0 auto;font-size:clamp(17px,2.4vw,23px)}
+  .cal .dow{font-size:.75em;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:6px}
+  .cal .d{position:relative;height:44px;display:flex;align-items:center;justify-content:center}
+  .cal .d.today svg{position:absolute;width:52px;height:52px;left:50%;top:50%;transform:translate(-50%,-52%);}
+  .cal .d.today span{position:relative;font-weight:500}
+  .count-title{margin:60px 0 26px;font-size:clamp(16px,2.4vw,22px);color:var(--muted)}
+  .count{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .count div{width:82px;height:82px;border:1px solid var(--line);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .count b{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:28px;line-height:1}
+  .count small{font-size:10px;letter-spacing:.08em;color:var(--muted);margin-top:4px}
+
+  /* ---------- Timeline ---------- */
+  .plan{display:grid;grid-template-columns:1fr 1fr;gap:60px 40px;margin-top:70px;text-align:left}
+  .item{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:0 20px}
+  .item .t{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,52px);font-weight:400;text-align:center;line-height:1}
+  .item .body{border-left:1px solid var(--line);padding-left:20px;min-height:100px;display:flex;flex-direction:column;justify-content:center}
+  .item .body h3{font-family:'Marck Script',cursive;font-weight:400;font-size:clamp(30px,4vw,40px);line-height:1.05;margin-bottom:8px}
+  .item .body p{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.4}
+  @media(max-width:640px){.plan{grid-template-columns:1fr;gap:44px}.item{grid-template-columns:90px 1fr}}
+
+  /* ---------- Location ---------- */
+  .venue{font-size:clamp(24px,4vw,36px);color:#4f6653;line-height:1.2;margin-bottom:34px}
+  .rule{width:80px;height:1px;background:var(--line);margin:0 auto 30px}
+  .addr{font-size:clamp(18px,2.6vw,26px);line-height:1.35;margin-bottom:34px}
+  .btn{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--ink);padding:16px 40px;text-decoration:none;color:var(--ink);letter-spacing:.2em;font-size:13px;text-transform:uppercase;transition:background .3s,color .3s}
+  .btn:hover{background:var(--ink);color:var(--cream)}
+  .btn svg{width:18px;height:18px}
+
+  /* ---------- Details / Dress code ---------- */
+  .heart-sm{width:52px;height:52px;margin:0 auto 34px;display:block}
+  .dc-note{margin-top:34px;font-size:15px;color:var(--muted);letter-spacing:.05em}
+
+  /* ---------- Reply ---------- */
+  .qs{max-width:520px;margin:30px auto 40px;text-align:left;font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.45;padding-left:0;list-style:none;counter-reset:q}
+  .qs li{position:relative;padding:14px 0 14px 54px;border-top:1px solid var(--line);counter-increment:q}
+  .qs li:last-child{border-bottom:1px solid var(--line)}
+  .qs li::before{content:counter(q,decimal-leading-zero);position:absolute;left:0;top:14px;font-size:16px;letter-spacing:.1em;color:var(--muted)}
+  .chev{width:26px;margin:24px auto 0;display:block;opacity:.6;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+  footer{padding:60px 24px 40px;text-align:center;color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:18px}
+  footer .script{font-size:44px;color:var(--ink);display:block;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div id="cover">
+  <svg class="silk" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1600 1000">
+    <defs>
+      <filter id="satin" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.0011 0.0028" numOctaves="2" seed="5" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="5" result="soft"/>
+        <feDiffuseLighting in="soft" lighting-color="#f8fbf6" surfaceScale="60" diffuseConstant="1.2" result="diff">
+          <feDistantLight azimuth="225" elevation="35"/>
+        </feDiffuseLighting>
+        <feSpecularLighting in="soft" lighting-color="#ffffff" surfaceScale="70" specularConstant="1.6" specularExponent="10" result="spec">
+          <feDistantLight azimuth="225" elevation="30"/>
+        </feSpecularLighting>
+        <feComposite in="spec" in2="diff" operator="arithmetic" k1="0" k2="0.6" k3="0.75" k4="0" result="lit"/>
+        <feColorMatrix in="lit" type="matrix" values="1.02 0 0 0 0.02  0 0.98 0 0 0.02  0 0 0.94 0 0.02  0 0 0 1 0" result="tinted"/>
+        <feGaussianBlur in="tinted" stdDeviation="4"/>
+      </filter>
+      <linearGradient id="pearl" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#dfe7db"/>
+        <stop offset=".45" stop-color="#c6d3c1"/>
+        <stop offset="1" stop-color="#dbe4d6"/>
+      </linearGradient>
+      <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="1" stop-color="#a3b5a1" stop-opacity=".45"/>
+      </radialGradient>
+      <filter id="frost" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="grain"/>
+        <feColorMatrix in="grain" type="saturate" values="0"/>
+        <feComponentTransfer result="g2"><feFuncA type="table" tableValues="0 .35"/></feComponentTransfer>
+        <feComposite in="g2" in2="SourceGraphic" operator="in" result="tex"/>
+        <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="tex"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#pearl)"/>
+    <rect width="1600" height="1000" filter="url(#satin)" opacity=".9" style="mix-blend-mode:multiply"/>
+    <rect width="1600" height="1000" fill="url(#vignette)"/>
+  </svg>
+
+  <div class="top">Вам пришло<span>приглашение</span></div>
+
+  <svg class="heart" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/>
+        <stop offset=".5" stop-color="#eef3ec" stop-opacity=".85"/>
+        <stop offset="1" stop-color="#d3dfd0" stop-opacity=".9"/>
+      </linearGradient>
+      <filter id="hblur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    </defs>
+    <path d="M50 88 C30 72 8 56 8 34 C8 20 19 11 30 11 C39 11 46 16 50 23 C54 16 61 11 70 11 C81 11 92 20 92 34 C92 56 70 72 50 88Z" fill="#fff" opacity=".55" filter="url(#hblur)"/>
+    <path d="M50 88 C30 72 8 56 8 34 C8 20 19 11 30 11 C39 11 46 16 50 23 C54 16 61 11 70 11 C81 11 92 20 92 34 C92 56 70 72 50 88Z" fill="url(#hg)" filter="url(#frost)"/>
+    <path d="M50 88 C30 72 8 56 8 34 C8 20 19 11 30 11 C39 11 46 16 50 23 C54 16 61 11 70 11 C81 11 92 20 92 34 C92 56 70 72 50 88Z" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width=".8"/>
+  </svg>
+
+  <div class="hint">нажмите, чтобы открыть приглашение</div>
+</div>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="caps">Приглашение<span>на свадьбу</span></div>
+    <div class="names">
+      <span class="name script">Алексей</span>
+      <span class="amp script">&amp;</span>
+      <span class="name script">Ксения</span>
+    </div>
+    <div class="date caps">11 сентября 2026</div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="blob" style="width:420px;height:420px;right:-180px;top:40px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">Дорогие гости</h2>
+    <p class="lead reveal">Один день в этом году будет для нас особенным, и мы хотим провести его в кругу близких и друзей. Мы рады пригласить Вас стать свидетелями этого торжества и разделить с нами самые яркие моменты.</p>
+
+    <div class="month caps reveal">Сентябрь 2026</div>
+    <div class="cal reveal" id="cal"></div>
+
+    <div class="count-title caps reveal">До свадьбы осталось…</div>
+    <div class="count reveal" id="count">
+      <div><b id="cd-d">0</b><small>дней</small></div>
+      <div><b id="cd-h">0</b><small>часов</small></div>
+      <div><b id="cd-m">0</b><small>минут</small></div>
+      <div><b id="cd-s">0</b><small>секунд</small></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="blob" style="width:360px;height:360px;left:-200px;bottom:-80px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">План дня</h2>
+    <p class="lead reveal">Наш день будет наполнен любовью, радостью и тёплыми моментами. Ниже — программа торжества, чтобы вы могли быть частью каждого из них.</p>
+
+    <div class="plan">
+      <div class="item reveal">
+        <div class="t">14:00</div>
+        <div class="body"><h3>Сбор гостей</h3><p>У Особняка Спиридонова. Захватите с собой хорошее настроение и свои улыбки</p></div>
+      </div>
+      <div class="item reveal">
+        <div class="t">14:15</div>
+        <div class="body"><h3>Церемония</h3><p>Вы станете свидетелями создания нашей семьи</p></div>
+      </div>
+      <div class="item reveal">
+        <div class="t">17:00</div>
+        <div class="body"><h3>Праздничный ужин</h3><p>Время вкусной еды, танцев и развлечений</p></div>
+      </div>
+      <div class="item reveal">
+        <div class="t">21:00</div>
+        <div class="body"><h3>Свадебный торт</h3><p>Сладкая традиция, которую мы не можем пропустить</p></div>
+      </div>
+      <div class="item reveal">
+        <div class="t">22:00</div>
+        <div class="body"><h3>Окончание вечера</h3><p>Спасибо, что разделили этот вечер с нами</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="blob" style="width:300px;height:300px;left:-120px;top:120px"></div>
+  <div class="blob" style="width:220px;height:220px;right:-90px;bottom:60px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">Локация</h2>
+
+    <div class="venue caps reveal">Церемония<br><span style="letter-spacing:.1em;font-size:.8em">Особняк Спиридонова</span></div>
+    <div class="addr reveal">Москва, Малый Гнездниковский пер.,<br>д. 9, стр. 1</div>
+    <a class="btn reveal" href="https://yandex.ru/maps/-/CTHkUH3E" target="_blank" rel="noopener">Карта
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+
+    <div style="height:70px"></div>
+
+    <div class="venue caps reveal">Праздничный ужин<br><span style="letter-spacing:.1em;font-size:.8em">Арт-парк «Гармонд»</span></div>
+    <div class="rule reveal"></div>
+    <div class="addr reveal">Московская обл., г. о. Люберцы,<br>село Сельцо, Парковая ул., д. 1</div>
+    <a class="btn reveal" href="https://yandex.ru/maps/-/CTHkYJ1F" target="_blank" rel="noopener">Карта
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M13 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<section>
+  <div class="blob" style="width:400px;height:400px;left:-220px;top:-60px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">Детали</h2>
+    <svg class="heart-sm reveal" viewBox="0 0 100 100" fill="none" stroke="#2f3d33" stroke-width="2">
+      <path d="M50 88 C30 72 8 56 8 34 C8 20 19 11 30 11 C39 11 46 16 50 23 C54 16 61 11 70 11 C81 11 92 20 92 34 C92 56 70 72 50 88Z"/>
+    </svg>
+    <p class="lead reveal">Свои тёплые слова и пожелания приносите в сердцах, а подарки — в конверте.</p>
+    <p class="lead reveal" style="margin-top:28px">Цветы дарить не нужно — мы всё равно уедем в свадебное путешествие, и им будет одиноко. Лучше подарите нам свой танец. А вместо слова «горько» пусть звучат ваши тёплые пожелания и радостные улыбки.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="blob" style="width:320px;height:320px;right:-140px;top:-40px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">Дресс-код</h2>
+    <p class="reveal" style="font-size:clamp(16px,2.2vw,21px);max-width:520px;margin:0 auto">Вы будете украшением вечера, если в вашем наряде будут присутствовать пастельные оттенки</p>
+    <p class="dc-note caps reveal">Просим воздержаться от джинсов</p>
+  </div>
+</section>
+
+<section>
+  <div class="blob" style="width:380px;height:380px;right:-200px;bottom:-120px"></div>
+  <div class="wrap">
+    <h2 class="script reveal">Ждём ответа</h2>
+    <p class="reveal" style="font-size:clamp(16px,2.2vw,21px);max-width:520px;margin:0 auto 10px">Пожалуйста, ответьте нам в мессенджере до 1 сентября на несколько вопросов:</p>
+    <svg class="chev reveal" viewBox="0 0 24 24" fill="none" stroke="#2f3d33" stroke-width="1.2"><path d="M4 6l8 8 8-8M4 12l8 8 8-8"/></svg>
+
+    <ol class="qs reveal">
+      <li>Сможете ли присутствовать на нашем торжестве?</li>
+      <li>Нужен ли вам трансфер до места празднования и обратно?</li>
+      <li>Какие напитки предпочитаете: игристое, белое или красное вино, крепкие или безалкогольные?</li>
+    </ol>
+
+    <p class="reveal" style="font-size:clamp(16px,2.2vw,21px);max-width:520px;margin:0 auto">Напишите Алексею или Ксении — так, как вам удобнее.</p>
+  </div>
+</section>
+
+<footer>
+  <span class="script">Ждём вас!</span>
+  Алексей &amp; Ксения · 11.09.2026
+</footer>
+
+<script>
+  const cover=document.getElementById('cover');
+  cover.addEventListener('click',()=>{cover.classList.add('hidden');document.body.style.overflow='';revealCheck();});
+  document.body.style.overflow='hidden';
+
+  (function(){
+    const cal=document.getElementById('cal');
+    ['пн','вт','ср','чт','пт','сб','вс'].forEach(d=>{const e=document.createElement('div');e.className='dow';e.textContent=d;cal.appendChild(e)});
+    const first=new Date(2026,8,1).getDay();
+    const offset=(first+6)%7;
+    for(let i=0;i<offset;i++)cal.appendChild(document.createElement('div'));
+    for(let d=1;d<=30;d++){
+      const e=document.createElement('div');e.className='d';
+      if(d===11){e.classList.add('today');e.innerHTML='<svg viewBox="0 0 100 100" fill="none" stroke="#2f3d33" stroke-width="1.5"><path d="M50 88 C30 72 8 56 8 34 C8 20 19 11 30 11 C39 11 46 16 50 23 C54 16 61 11 70 11 C81 11 92 20 92 34 C92 56 70 72 50 88Z"/></svg><span>11</span>';}
+      else e.textContent=d;
+      cal.appendChild(e);
+    }
+  })();
+
+  const target=new Date('2026-09-11T14:00:00+03:00').getTime();
+  function tick(){
+    let diff=Math.max(0,target-Date.now());
+    const d=Math.floor(diff/864e5);diff-=d*864e5;
+    const h=Math.floor(diff/36e5);diff-=h*36e5;
+    const m=Math.floor(diff/6e4);diff-=m*6e4;
+    const s=Math.floor(diff/1e3);
+    document.getElementById('cd-d').textContent=d;
+    document.getElementById('cd-h').textContent=h;
+    document.getElementById('cd-m').textContent=m;
+    document.getElementById('cd-s').textContent=s;
+  }
+  tick();setInterval(tick,1000);
+
+  const els=document.querySelectorAll('.reveal');
+  function revealCheck(){
+    const vh=window.innerHeight;
+    els.forEach(e=>{if(e.getBoundingClientRect().top<vh*0.92)e.classList.add('on')});
+  }
+  window.addEventListener('scroll',revealCheck,{passive:true});
+  window.addEventListener('load',revealCheck);
+</script>
+</body>
+</html>
